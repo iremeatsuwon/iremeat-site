@@ -1,0 +1,6 @@
+'use strict';
+// Add confirmed campaigns here with type, title, date, summary and a local landing-page URL.
+const posts=[];
+const list=document.querySelector('#news-list');
+function render(filter){list.replaceChildren();const selected=posts.filter(p=>filter==='all'||p.type===filter);if(!selected.length){const box=document.createElement('div');box.className='news-empty';const h=document.createElement('h2');h.textContent=filter==='weekly'?'주별 행사 소식을 준비하고 있어요.':filter==='monthly'?'월별 소식을 준비하고 있어요.':'첫 소식을 준비하고 있어요.';const p=document.createElement('p');p.textContent='새로운 소식이 등록되면 이곳에서 확인하실 수 있어요.';box.append(h,p);list.append(box);return;}selected.forEach(post=>{const a=document.createElement('a');a.className='news-card';a.href=post.url;const h=document.createElement('h2');h.textContent=post.title;const date=document.createElement('p');date.textContent=post.date;const p=document.createElement('p');p.textContent=post.summary;a.append(date,h,p);list.append(a);});}
+document.querySelectorAll('[data-filter]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('[data-filter]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));render(b.dataset.filter);}));render('all');

@@ -1,0 +1,12 @@
+# Search engine indexing is allowed. Other crawlers are disallowed.
+User-agent: Googlebot
+User-agent: Googlebot-Image
+User-agent: Bingbot
+User-agent: Yeti
+User-agent: Daum
+Allow: /
+
+User-agent: *
+Disallow: /
+
+Sitemap: https://iremeat.com/sitemap.xml
