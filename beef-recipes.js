@@ -15,11 +15,11 @@ let beefOpener;
 function showBeefList(){
  beefView.innerHTML=`<h2 id="beef-dialog-title" tabindex="-1">오늘은 ${activeMeat}로 무엇을 만들까요?</h2><p class="beef-intro">마음에 드는 요리를 골라보세요. 재료와 만드는 순서를 안내해 드릴게요.</p><div class="beef-dishes"></div>`;
  const grid=beefView.querySelector('.beef-dishes');
- activeRecipes.forEach(r=>{const card=document.createElement('article');card.className='beef-dish';card.innerHTML=`<img src="images/${r.image}" alt="${r.name}" width="1448" height="1086"><div><h3>${r.name}</h3><p>${r.intro}</p><button class="button red" type="button" aria-label="${r.name} 레시피 보기">레시피 보기 <span>↗</span></button></div>`;card.querySelector('button').addEventListener('click',()=>showBeefRecipe(r));grid.append(card);});
+ activeRecipes.forEach(r=>{const card=document.createElement('article');card.className='beef-dish';card.innerHTML=`<img src="/images/${r.image}" alt="${r.name}" width="1448" height="1086"><div><h3>${r.name}</h3><p>${r.intro}</p><button class="button red" type="button" aria-label="${r.name} 레시피 보기">레시피 보기 <span>↗</span></button></div>`;card.querySelector('button').addEventListener('click',()=>{location.href='/recipes/'+r.id+'/';});grid.append(card);});
  beefDialog.scrollTop=0;
 }
 function showBeefRecipe(r){
- beefView.innerHTML=`<button class="beef-back" type="button">← 다른 요리 보기</button><div class="beef-detail"><img src="images/${r.image}" alt="${r.name}" width="1448" height="1086"><div><span class="recipe-question">${r.cut}</span><h2 id="beef-dialog-title" tabindex="-1">${r.name}</h2><p class="beef-time">${r.time}</p><h3>준비할 재료</h3><p>${r.ingredients}</p><h3>이렇게 만들어보세요</h3><ol>${r.steps.map(step=>`<li>${step}</li>`).join('')}</ol><p class="beef-tip">${r.tip}</p><a class="button red" href="tel:01099299291">요리에 맞는 부위 문의 ↗</a></div></div>`;
+ beefView.innerHTML=`<button class="beef-back" type="button">← 다른 요리 보기</button><div class="beef-detail"><img src="/images/${r.image}" alt="${r.name}" width="1448" height="1086"><div><span class="recipe-question">${r.cut}</span><h2 id="beef-dialog-title" tabindex="-1">${r.name}</h2><p class="beef-time">${r.time}</p><h3>준비할 재료</h3><p>${r.ingredients}</p><h3>이렇게 만들어보세요</h3><ol>${r.steps.map(step=>`<li>${step}</li>`).join('')}</ol><p class="beef-tip">${r.tip}</p><a class="button red" href="tel:01099299291">요리에 맞는 부위 문의 ↗</a></div></div>`;
  beefView.querySelector('.beef-back').addEventListener('click',()=>{showBeefList();document.querySelector('#beef-dialog-title').focus();});
  beefDialog.scrollTop=0;document.querySelector('#beef-dialog-title').focus();
 }
