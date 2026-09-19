@@ -1,5 +1,6 @@
-# Search discovery and link previews. Training crawlers remain disallowed.
+# Search discovery and link previews. Google-Extended permitted by owner. Other training crawlers remain disallowed.
 User-agent: Googlebot
+User-agent: Google-Extended
 User-agent: Googlebot-Image
 User-agent: Bingbot
 User-agent: Yeti
@@ -13,7 +14,6 @@ User-agent: kakaotalk-scrap
 Allow: /
 
 User-agent: GPTBot
-User-agent: Google-Extended
 User-agent: CCBot
 Disallow: /
 
