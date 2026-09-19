@@ -2,6 +2,18 @@
 const intro=document.querySelector('.brand-intro');
 if(intro){try{if(sessionStorage.getItem('ire-intro-seen'))intro.remove();sessionStorage.setItem('ire-intro-seen','1');}catch{}setTimeout(()=>intro.remove(),1400);}
 const pause=document.querySelector('.promise-pause');
+const ticker=document.querySelector('.promise-track');
+if(ticker){
+ const source=ticker.firstElementChild.innerHTML;
+ const fitTicker=()=>{
+  const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const group=ticker.firstElementChild;group.innerHTML=source;
+  if(!reduced){while(group.getBoundingClientRect().width<ticker.parentElement.clientWidth+100){group.insertAdjacentHTML('beforeend','<span aria-hidden="true" class="ticker-repeat">'+source+'</span>');}}
+  const copy=group.cloneNode(true);copy.setAttribute('aria-hidden','true');ticker.lastElementChild.replaceWith(copy);
+  ticker.style.setProperty('--ticker-duration',Math.max(20,group.getBoundingClientRect().width/30)+'s');
+ };
+ document.fonts.ready.then(fitTicker);new ResizeObserver(fitTicker).observe(ticker.parentElement);matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change',fitTicker);
+}
 pause?.addEventListener('click',()=>{const stopped=pause.getAttribute('aria-pressed')!=='true';pause.setAttribute('aria-pressed',String(stopped));pause.setAttribute('aria-label',stopped?'흐르는 문구 재생':'흐르는 문구 일시정지');pause.textContent=stopped?'▷':'Ⅱ';pause.closest('.promise-strip').classList.toggle('is-paused',stopped);});
 // Event pages do not load the image gallery script that also controls navigation.
 if(!document.querySelector('#photo-modal')){const button=document.querySelector('.menu-toggle'),menu=document.querySelector('#nav');button?.addEventListener('click',()=>{const open=button.getAttribute('aria-expanded')!=='true';button.setAttribute('aria-expanded',String(open));button.setAttribute('aria-label',open?'메뉴 닫기':'메뉴 열기');menu.classList.toggle('open',open);});document.addEventListener('keydown',e=>{if(e.key==='Escape'){button?.setAttribute('aria-expanded','false');menu?.classList.remove('open');}});}
